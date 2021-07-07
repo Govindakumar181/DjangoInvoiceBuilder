@@ -1,0 +1,61 @@
+{% extends 'payment/main.html' %}
+{% load static %}
+{% block title %}Customers{% endblock title %}
+{% block content %}
+
+<div id="page-wrapper">
+  <div class="header"> 
+          <h1 class="page-header">
+            Edit Customers
+          </h1>
+  <ol class="breadcrumb">
+  <li><a href="{% url 'index' %}">Home</a></li>
+  <li class="active">Edit Customers</li>
+  </ol> 
+  </div>
+  
+
+
+            <form action="" method="post" style="margin:100px;">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="">Name</label>
+                <input type="text" value="{{customer.customer_name}}" name="customer_name" class="form-control" id="" placeholder="Enter Name" required>
+            </div>
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="email" value="{{customer.customer_email}}" name="customer_email" class="form-control" id="" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+                <label for="">Project Title</label>
+                <input type="text" value="{{customer.customer_project_title}}" name="customer_project_title" class="form-control" id="" placeholder="Enter Project Title" required>
+            </div>
+            <div class="form-group">
+                <label for="">Total Cost</label>
+                <input type="Number" value="{{customer.total_cost}}" name="total_cost" class="form-control" id="" placeholder="Enter Total Cost" required>
+            </div>
+            <div class="form-group">
+                <label for="">Milestone</label>
+                <input type="Number" value="{{customer.milestone}}" name="milestone" class="form-control" id="" placeholder="Enter Milestone" required>
+            </div>
+            <div class="form-group">
+                <label for="">Start Date</label>
+                <input type="date" value="{{customer.start_date}}" name="start_date" class="form-control" id="" placeholder="Enter Start Date" required>
+            </div>
+            <div class="form-group">
+                <label for="">Due Date</label>
+                <input type="date" value="{{customer.due_date}}" name="due_date" class="form-control" id="" placeholder="Enter Due Date" required>
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+
+            <button type="submit" name="customer_submit" class="btn btn-success">Submit</button>
+            </form>
+
+
+</div>
+
+{% endblock content %}

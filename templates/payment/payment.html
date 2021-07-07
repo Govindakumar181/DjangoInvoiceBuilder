@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+{% load static %}
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <title>Index</title> 
+	<style type="text/css">
+        #inputfields{
+            border:none;
+            display:block;
+            width:100%;
+            padding:10px;
+            background:#fff;
+        }
+        .myButton{
+            border:none;
+            padding:10px;
+            background:#000;
+        }
+        .myButton:hover{
+            border:none;
+            padding:10px;
+            background:#000;
+        }
+		/**
+		 * The CSS shown here will not be introduced in the Quickstart guide, but shows
+		 * how you can use CSS to style your Element's container.
+		 */
+		.StripeElement {
+		  box-sizing: border-box;
+
+		  height: 40px;
+
+		  padding: 10px 12px;
+
+		  border: 1px solid transparent;
+		  border-radius: 4px;
+		  background-color: white;
+
+		  box-shadow: 0 1px 3px 0 #e6ebf1;
+		  -webkit-transition: box-shadow 150ms ease;
+		  transition: box-shadow 150ms ease;
+		}
+
+		.StripeElement--focus {
+		  box-shadow: 0 1px 3px 0 #cfd7df;
+		}
+
+		.StripeElement--invalid {
+		  border-color: #fa755a;
+		}
+
+		.StripeElement--webkit-autofill {
+		  background-color: #fefde5 !important;
+		}
+		/**=======================================================================*/
+		#container{
+            width:100%;
+            display: flex;
+            justify-content: center;
+		}
+
+		.column-6{
+			width: 80%;
+		}
+
+		#left-wrapper{
+			background-color: #fff;
+			box-shadow: 0 8px 16px 0 #dce0e6;
+		    border-radius: 4px;
+		    border: 1px solid transparent;
+		    margin-top:30px;
+            padding: 30px;	
+		}
+
+
+	</style>
+</head>
+
+<body>
+
+
+
+	<div id="container">
+		<div class="column-6">
+			<div id="left-wrapper">
+				<!-- Add form here -->
+				<form action="{% url 'charge' %}" method="post" id="payment-form">
+					{% csrf_token %}
+					<!--
+                    <div class="form-field-12">
+						<label for="amount">Choose Amount:</label>
+						<br>
+						<select required name="amount" id="amount">
+						  <option selected value="1">$5 --- Here's a coffee, on me :)</option>
+						  <option value="0">$10 --- You helped me, so I am going to help you</option>
+						  <option value="0">$25 --- I love your channel!</option>
+						</select>
+					</div>
+
+					<div class="form-field-6">
+						<input required type="email" name="email" placeholder="email...">
+					</div>
+
+					<div class="form-field-6">
+						<input required type="text" name="nickname" placeholder="Nickname...">
+					</div>
+                    -->
+					<div class="form-field-6">
+                        <label>Customer Name</label>
+						<input id="inputfields" required type="text" name="customer_name" value="{{customer.customer_name}}" readonly>
+					</div>
+					<div class="form-field-6">
+                        <label>Customer Email</label>
+						<input id="inputfields" required type="text" name="customer_email" value="{{customer.customer_email}}" readonly>
+					</div>
+					<div style="display:none;" class="form-field-6">
+                        <label>Project Title</label>
+						<input id="inputfields" required type="text" name="customer_project_title" value="{{customer.customer_project_title}}" readonly>
+					</div>
+					<div class="form-field-6">
+                        <label>Amount to be pay</label>
+						<input id="inputfields" required type="text" name="total_cost" value="{{customer.total_cost}}" readonly>
+					</div>
+					<div style="display:none;" class="form-field-6">
+                        <label>Milestone</label>
+						<input id="inputfields" required type="text" name="milestone" value="{{customer.milestone}}" readonly>
+					</div>
+					<div style="display:none;" class="form-field-6">
+                        <label>Status</label>
+						<input id="inputfields" required type="text" name="status" value="{{customer.status}}" readonly>
+					</div>
+					<div style="display:none;" class="form-field-6">
+                        <label>Start Date</label>
+						<input id="inputfields" required type="text" name="start_date" value="{{customer.start_date.date}}" readonly>
+					</div>
+					<div style="display:none;" class="form-field-6">
+                        <label>Due Date</label>
+						<input id="inputfields" required type="text" name="due_date" value="{{customer.due_date.date}}" readonly>
+					</div>
+				  <div class="form-row" style="margin-top:20px;">
+				    <label for="card-element">
+				      Credit or debit card
+				    </label>
+				    <div id="card-element" style="background:#eee;">
+				      <!-- A Stripe Element will be inserted here. -->
+				    </div>
+
+				    <!-- Used to display form errors. -->
+				    <div id="card-errors" role="alert"></div>
+				  </div>
+				  
+				  <div style="clear:left"></div>
+				  <hr>
+
+				 	<input class="myButton btn btn-success" style="" type="submit" value="Submit Payment" name="">
+
+				</form>
+
+			
+			</div>
+		</div>
+
+	</div>
+
+    <script>
+		// Create a Stripe client.
+		var stripe = Stripe('pk_test_51J876GAkgNoo3fJp33Te9RK8v1EpxPTy0goWshxhuvwnCq6lavwdBWDBOhNkFrdXMktdwckV5Ne18yhJSbc1lLNt00cWiX7mov');
+
+		// Create an instance of Elements.
+		var elements = stripe.elements();
+
+		// Custom styling can be passed to options when creating an Element.
+		// (Note that this demo uses a wider set of styles than the guide below.)
+		var style = {
+		  base: {
+		    color: '#32325d',
+		    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+		    fontSmoothing: 'antialiased',
+		    fontSize: '16px',
+		    '::placeholder': {
+		      color: '#aab7c4'
+		    }
+		  },
+		  invalid: {
+		    color: '#fa755a',
+		    iconColor: '#fa755a'
+		  }
+		};
+
+		// Create an instance of the card Element.
+		var card = elements.create('card', {style: style});
+
+		// Add an instance of the card Element into the `card-element` <div>.
+		card.mount('#card-element');
+
+		// Handle real-time validation errors from the card Element.
+		card.addEventListener('change', function(event) {
+		  var displayError = document.getElementById('card-errors');
+		  if (event.error) {
+		    displayError.textContent = event.error.message;
+		  } else {
+		    displayError.textContent = '';
+		  }
+		});
+
+		// Handle form submission.
+		var form = document.getElementById('payment-form');
+		form.addEventListener('submit', function(event) {
+		  event.preventDefault();
+
+		  stripe.createToken(card).then(function(result) {
+		    if (result.error) {
+		      // Inform the user if there was an error.
+		      var errorElement = document.getElementById('card-errors');
+		      errorElement.textContent = result.error.message;
+		    } else {
+		      // Send the token to your server.
+		      stripeTokenHandler(result.token);
+		    }
+		  });
+		});
+
+		// Submit the form with the token ID.
+		function stripeTokenHandler(token) {
+		  // Insert the token ID into the form so it gets submitted to the server
+		  var form = document.getElementById('payment-form');
+		  var hiddenInput = document.createElement('input');
+		  hiddenInput.setAttribute('type', 'hidden');
+		  hiddenInput.setAttribute('name', 'stripeToken');
+		  hiddenInput.setAttribute('value', token.id);
+		  form.appendChild(hiddenInput);
+
+		  // Submit the form
+		  form.submit();
+		}
+	</script>
+
+</body>
+</html>

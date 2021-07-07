@@ -1,0 +1,265 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    
+        <link rel="stylesheet" href="{% static 'assets/login/fonts/icomoon/style.css' %}">
+    
+        <link rel="stylesheet" href="{% static 'assets/login/css/owl.carousel.min.css' %}">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'assets/login/css/bootstrap.min.css' %}">
+        
+        <!-- Style -->
+        <link rel="stylesheet" href="{% static 'assets/login/css/style.css' %}">
+    
+        <title>Sign Up</title>
+      </head>
+  <body>
+
+        <div class="content">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6 order-md-2">
+                  <img src="{% static 'assets/img/undraw_file_sync_ot38.svg' %}" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-md-6 contents">
+                  <div class="row justify-content-center">
+                    <div class="col-md-8">
+                      <div class="mb-4">
+                      <h3>Resgister to <strong>Portal</strong></h3>
+                      <p class="text-center mb-3">Get started with your free account</p>
+                    </div>
+                    <form action="{% url 'signup' %}" method="post">
+                      {% csrf_token %}
+                      <div class="form-group first">
+                        <label for="username">First Name</label>
+                        <input type="text" class="form-control" name="fname" required>
+
+        
+                      </div>
+                      <div class="form-group first">
+                        <label >Last Name</label>
+                        <input type="text" class="form-control" name="lname" required>
+                      </div>
+                      <div class="form-group first">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="username" required>        
+                      </div>
+                      <div class="form-group last mb-4">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" name="email" required>                        
+                      </div>
+                      <div class="form-group last mb-4">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="myeye" name="password" required>                        
+                      </div>
+
+                      <div class="form-group last mb-4">
+                        <label for="password">Repeat Password</label>
+                        <input type="password" class="form-control" id="myeye" name="password" required>                        
+                      </div>
+                      
+                      <div class="d-flex mb-5 align-items-center">
+                        <!-- <label class="control control--checkbox mb-0"><span class="caption">Accept Terms and Conditions</span>
+                          <input type="checkbox" checked="checked"/>
+                          <div class="control__indicator"></div>
+                        </label> -->
+
+                        <span class="ml-auto"><a href="{% url 'signin' %}" class="forgot-pass">Already have an account?</a></span> 
+                      </div>
+        
+                      <input type="submit" value="Register" class="btn text-white btn-block btn-primary">
+        
+                      
+                    </div>
+                  </div>
+                  
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+          <script>
+            function myeye(){
+                var x = document.getElementById("myeye");
+                var y = document.getElementById("hide1");
+                var z = document.getElementById("hide2");
+                if(x.type ==='password'){
+                    x.type = "text"
+                    y.style.display = "block"
+                    z.style.display = "none"
+                }
+                else{
+                    x.type = "password"
+                    y.style.display = "none"
+                    z.style.display = "block"
+                }
+            }
+        </script>
+  
+          <script src="{% static 'assets/login/js/jquery-3.3.1.min.js' %}"></script>
+          <script src="{% static 'assets/login/js/popper.min.js' %}"></script>
+          <script src="{% static 'assets/login/js/bootstrap.min.js' %}"></script>
+          <script src="{% static 'assets/login/js/main.js' %}"></script>
+      
+        </body>
+</html>
+
+
+
+
+    
+    <div class="SignUp-form" >   
+            
+            <form action="{% url 'signup' %}" method="post" >
+            {% csrf_token %}
+                <h2 class="text-center">Register</h2>
+            <p class="text-center mb-3">Get started with your free account</p>
+            <!--    
+            <div class="text-center social-btn">
+                <a href="#" class="btn-google m-b-10 w-100 mb-2"><i class="fa fa-google"></i>Google</a>
+                <a href="#" class="btn-face m-b-10 w-100"><i class="fa fa-facebook"></i>Facebook</a>
+            </div>
+            <div class="or-seperator"><i>or</i></div>
+                -->
+
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user-plus"></i> </span>
+                 </div>
+                <input name="fname" class="form-control" placeholder="first name" type="text" required>
+            </div>
+
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user-plus"></i> </span>
+                 </div>
+                <input name="lname" class="form-control" placeholder="last name" type="text" required>
+            </div>
+
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                 </div>
+                <input name="username" class="form-control" placeholder="User name" type="text" required>
+            </div>
+            
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                 </div>
+                <input name="email" class="form-control" placeholder="Email address" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+            </div>
+    
+             <!-- form-group// -->
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                </div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">+92</span>
+                </div>                
+                <input name="number" class="form-control" placeholder="3*********" type="number" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10">
+            </div>
+             <!-- form-group// -->
+         <!--   <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+                </div>
+                <select class="form-control">
+                    <option selected=""> Select account type</option>
+                    <option>Buyer</option>
+                    <option>Seller</option>
+                    <option>Designer</option>
+                </select>
+            </div> 
+
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-map-marker"></i> </span>
+                 </div>
+                <input name="" class="form-control" placeholder="Address" type="text">
+            </div>-->
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                <input class="form-control" name="pass1" id="myeye1" placeholder="Create password" type="password" required>
+                <div class="input-group-prepend">
+                <span class="input-group-text" onclick="myeye1()">
+                        <i class="fa fa-eye" id="hide1"></i>
+                        <i class="fa fa-eye-slash" id="hide2"></i>
+                    </span>                    
+                </div>	
+            </div> 
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                <input class="form-control" name="pass2" id="myeye2" placeholder="Repeat password" type="password" required>
+                <div class="input-group-prepend">
+                <span class="input-group-text" onclick="myeye2()">
+                        <i class="fa fa-eye" id="hide3"></i>
+                        <i class="fa fa-eye-slash" id="hide4"></i>
+                </span>                    
+                </div>	
+            </div>
+            <div class="clearfix mt-3 mb-3"> <label class="float-left form-check-label"><input type="checkbox" class="mr-2" required>I have read, accepted and agreed to the<b>.</b></label> </div>
+  					<div class="container-login100-form-btn p-t-5  p-b-15">
+						<button type="submit" class="login100-form-btn" style="background-color:blue;height:50px">
+							REGISTER
+						</button>
+					</div>             
+            
+        </form>
+
+        <p class="text-center text-muted" style="font-weight:bold;font-size:17px;">Already have an account? <a href="{% url 'signin' %}"  style="color:blue">LOGIN HERE</a></p>
+        
+        </div> 
+        
+        <br><br>
+
+
+
+</div>
+
+
+<script>
+    function myeye1(){
+        var x = document.getElementById("myeye1");
+        var y = document.getElementById("hide1");
+        var z = document.getElementById("hide2");
+        if(x.type ==='password'){
+            x.type = "text"
+            y.style.display = "block"
+            z.style.display = "none"
+        }
+        else{
+            x.type = "password"
+            y.style.display = "none"
+            z.style.display = "block"
+        }
+    }
+    function myeye2(){
+        var x = document.getElementById("myeye2");
+        var y = document.getElementById("hide3");
+        var z = document.getElementById("hide4");
+        if(x.type ==='password'){
+            x.type = "text"
+            y.style.display = "block"
+            z.style.display = "none"
+        }
+        else{
+            x.type = "password"
+            y.style.display = "none"
+            z.style.display = "block"
+        }
+    }
+</script>

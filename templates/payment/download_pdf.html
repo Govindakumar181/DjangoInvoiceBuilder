@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Title</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">  
+
+    </head>
+    <body>
+<div class="container-fluid">
+  
+  <h2>Payment Portal</h2>
+  <h2 align="center">Invoice</h2>
+  <br>
+<table class="" style="width:100%">
+  <thead>
+    <tr>
+      <th><h6 class=""></h6></th>
+      <th><h6 class=""></h6></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Order Id: #00{{customer.id}}</td>
+      <td>Name: {{customer.customer_name}}</td>
+    </tr>
+    <tr>
+      <td>Dated: {{time.date}}</td>
+      <td>Email: {{customer.customer_email}}</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<br>
+<br>
+
+
+<div class="table-responsive-sm">
+<table class="table table-striped">
+<thead>
+<tr>
+<th class="center">Order Id</th>
+<th>Name</th>
+<th class="right">Email</th>
+<th>Project Title</th>
+  <th class="center">Total Cost</th>
+<th class="right">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="center">#00{{customer.id}}</td>
+<td class="left strong">{{customer.customer_name}}</td>
+<td class="left">{{customer.customer_email}}</td>
+
+<td class="right">{{customer.customer_project_title}}</td>
+  <td class="center">{{customer.total_cost}}</td>
+<td class="right">{{customer.status}}</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+<div class="row">
+<div class="col-lg-4 col-sm-5">
+
+</div>
+
+<br>
+<br>
+
+<div class="">
+<table class="">
+<tbody>
+<tr>
+<td class="">
+<strong>Subtotal </strong>
+</td>
+<td class="">Rs. {{customer.total_cost}} </td>
+</tr>
+<tr>
+<td class="">
+<strong>Total </strong>
+</td>
+<td class="">
+<strong>Rs. {{customer.total_cost}} </strong>
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+    </body>
+</html>
